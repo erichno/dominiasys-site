@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #0d1b2a;
+  --azul-royal: #2563eb;
+  --azul-celeste: #38bdf8;
+  --cinza-prata: #9ca3af;
+  --branco-frio: #f8fafc;
+
+  --surface-900: #06111f;
+  --surface-800: #0d1b2a;
+  --surface-700: #12263a;
+  --surface-600: #1b3550;
+  --surface-500: #274766;
+
+  --blue-700: #1d4ed8;
+  --blue-600: #2563eb;
+  --blue-500: #3b82f6;
+  --blue-400: #38bdf8;
+  --blue-200: #bae6fd;
+
+  --sucesso: #10b981;
+  --atencao: #f59e0b;
+  --erro: #ef4444;
+  --info: #38bdf8;
+
+  --grad-marca: linear-gradient(120deg, #1d4ed8, #2563eb 42%, #38bdf8);
+  --grad-fundo: linear-gradient(160deg, #0d1b2a, #06111f);
+
+  --elev-1: 0 6px 18px rgba(0, 0, 0, 0.28);
+  --elev-2: 0 18px 44px rgba(0, 0, 0, 0.34);
+  --elev-3: 0 30px 80px rgba(0, 0, 0, 0.42);
+  --elev-foco: 0 0 0 3px rgba(56, 189, 248, 0.45);
+
+  --dur-micro: 120ms;
+  --dur-comp: 220ms;
+  --dur-pagina: 360ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+body {
+  background: var(--surface-800);
+  color: var(--branco-frio);
+  font-family: var(--font-raleway), sans-serif;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--elev-foco);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
