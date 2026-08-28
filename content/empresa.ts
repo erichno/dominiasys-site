@@ -44,9 +44,9 @@ const empresa: Empresa = empresaSchema.parse({
   dominio: "dominiasys.com.br",
   slogan: "Inteligência que transforma. Resultados que dominam.",
   fundador: {
-    nome: "Erich Cavichi",
+    nome: "Erich Noronha",
     cargo: "Consultor em Inteligência Artificial",
-    formacao: ["IA Generativa — MIT Professional Education", "MBA — FGV"],
+    formacao: ["MBA FGV", "MIT", "ITA"],
   },
 });
 

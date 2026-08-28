@@ -462,14 +462,14 @@ Toda a copy abaixo está pronta para uso. Regras de voz aplicadas: frases curtas
 > QUEM CONDUZ
 
 **H2**
-> Erich Cavichi
+> Erich Noronha
 
 **Texto**
-> Sou engenheiro e gestor de tecnologia. Passei 15 anos na indústria aeronáutica cuidando de plataformas de conteúdo, liderei engenharia dentro de uma das maiores operações financeiras do país, com até 80 pessoas em 18 squads, e hoje sigo liderando um time de engenharia enquanto conduzo os projetos da DOMINIA.
+> Sou engenheiro e gestor de tecnologia. Passei 15 anos na indústria aeronáutica cuidando de plataformas de conteúdo, liderei engenharia dentro de uma das maiores operações financeiras do país, com mais de 80 pessoas em squads multi disciplinares, e hoje sigo liderando um time de engenharia enquanto conduzo os projetos da DOMINIA.
 >
 > Isso significa uma coisa prática para você: eu já estive do lado de dentro. Já vi projeto de tecnologia morrer por falta de patrocínio, já migrei sistema legado para nuvem com a operação rodando e já entreguei plataforma de IA em produção com arquitetura de RAG e agentes. Quando eu digo que um prazo é otimista, é porque eu já perdi esse prazo antes.
 >
-> A DOMINIA nasceu disso e leva o nome da minha família: DO, MI, NI e A, com IA de inteligência artificial no fim. É um negócio de pessoa, não de balcão.
+> A DOMINIA nasceu disso e leva o nome da minha família: DO, MI, NI e A, com IA de inteligência artificial no fim. É um negócio de pessoas para pessoas.
 
 **Formação**
 > IA Generativa · MIT Professional Education · MBA · FGV
@@ -585,7 +585,7 @@ Serviços · Método · Trajetória · Perguntas · Política de Privacidade · 
 > DOMINIA Consultoria em Tecnologia da Informação LTDA
 > Rua Benedito Oswaldo Lecques, 51, Sala 104
 > São José dos Campos, SP
-> contato@dominia.com.br
+> contato@dominiasys.com.br
 > WhatsApp: [número]
 > CNPJ: [preencher]
 

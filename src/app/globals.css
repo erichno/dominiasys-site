@@ -51,6 +51,28 @@ body {
   box-shadow: var(--elev-foco);
 }
 
+summary::-webkit-details-marker {
+  display: none;
+}
+
+@keyframes mesh-drift {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-12px, 10px);
+  }
+}
+
+@keyframes painel-entra {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

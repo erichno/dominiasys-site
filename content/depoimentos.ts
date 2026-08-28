@@ -67,7 +67,7 @@ export const projetosProprios: ProjetoProprio[] = [
     desafio:
       "Decisões de carreira tomadas sem método e sem revisão externa qualificada.",
     solucao:
-      "Mentoria individual de carreira e alta performance, conduzida por Erich Cavichi.",
+      "Mentoria individual de carreira e alta performance, conduzida por Erich Noronha.",
     resultado: "Mais de 100 pessoas mentoradas.",
   },
 ];
