@@ -16,8 +16,9 @@ export interface ProjetoProprio {
 }
 
 /**
- * Vazio até haver 3 depoimentos reais. Enquanto vazio, a seção de Prova
- * social usa `projetosProprios` no lugar (ver docs/spec-landing.md, Seção 8).
+ * A seção de Prova social só renderiza com 3 ou mais itens aqui (spec-landing.md,
+ * Seção 8: "se você não tiver 3 depoimentos até o lançamento, oculte esta seção
+ * inteira"). Enquanto vazio, a seção usa `projetosProprios` no lugar.
  */
 export const depoimentos: Depoimento[] = [];
 

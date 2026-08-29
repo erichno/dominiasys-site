@@ -1,29 +1,40 @@
+"use client";
+
 import { MalhaDeDados } from "@/components/brand/MalhaDeDados";
 import { Button } from "@/components/ui/Button";
-import { agendarHref, whatsappHref } from "@/lib/agendar";
-import { formatarMoeda } from "@/lib/moeda";
+import { useReveal } from "@/hooks/useReveal";
+import { whatsappHref } from "@/lib/agendar";
 import servicos from "@/content/servicos";
 
 const diagnostico = servicos.find(
   (servico) => servico.slug === "diagnostico-de-maturidade-em-ia",
 )!;
 
+// Copy literal da seção 6, subseção 6 (Bloco do Diagnóstico) — a lista de
+// entregáveis aqui usa a redação da spec para esta faixa, diferente (mais
+// detalhada) da versão resumida em content/servicos.ts usada nos cards.
+const ENTREGAVEIS = [
+  "Nota de maturidade por dimensão: dados, processos, pessoas, tecnologia e governança",
+  "10 a 15 oportunidades mapeadas e ordenadas por impacto e esforço",
+  "Estimativa de retorno das 3 principais",
+  "Roadmap de 90 dias com responsável e critério de sucesso",
+  "Apresentação executiva de 60 min para a diretoria",
+];
+
 export function BlocoDiagnostico() {
+  const ref = useReveal<HTMLElement>();
+
   return (
-    <section className="relative overflow-hidden bg-surface-700 px-6 py-secao-mobile sm:py-secao-desktop">
+    <section
+      ref={ref}
+      className="reveal relative overflow-hidden bg-surface-700 px-6 py-secao-mobile sm:py-secao-desktop"
+    >
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[2px] bg-grad-marca" />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden text-azul-celeste opacity-[0.08] lg:block"
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, black 0%, transparent 18%, transparent 82%, black 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, black 0%, transparent 18%, transparent 82%, black 100%)",
-        }}
-      >
-        <MalhaDeDados className="h-full w-full" />
-      </div>
+      <MalhaDeDados
+        className="hidden text-azul-celeste lg:block"
+        opacidade={0.08}
+        mascara="linear-gradient(to bottom, black 0%, transparent 18%, transparent 82%, black 100%)"
+      />
 
       <div className="relative z-10 mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
         <div>
@@ -40,30 +51,23 @@ export function BlocoDiagnostico() {
           </p>
 
           <p className="mt-6 text-sm text-cinza-prata">
-            2 semanas · reunião de imersão de 90 min · 3 a 5 entrevistas · a partir de{" "}
-            {formatarMoeda(diagnostico.faixaPreco.min)}
+            2 semanas · reunião de imersão de 90 min · 3 a 5 entrevistas · a partir de R$ 4.500
           </p>
 
           <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <Button href={agendarHref()}>{diagnostico.cta}</Button>
+            <Button href="/diagnostico">{diagnostico.cta}</Button>
             <Button
               href={whatsappHref("Tenho uma dúvida sobre o Diagnóstico de Maturidade em IA.")}
               variant="tertiary"
             >
               Tirar uma dúvida antes
-              <span
-                aria-hidden="true"
-                className="inline-block transition-transform duration-micro ease-marca group-hover:translate-x-1"
-              >
-                →
-              </span>
             </Button>
           </div>
         </div>
 
         <div className="rounded-card border border-branco-frio/[0.06] bg-surface-800 p-padding-card">
           <ul className="space-y-4">
-            {diagnostico.entregaveis.map((item) => (
+            {ENTREGAVEIS.map((item) => (
               <li
                 key={item}
                 className="flex gap-3 text-corpo-mobile text-cinza-prata sm:text-corpo"

@@ -20,7 +20,17 @@ const empresaSchema = z.object({
   fundador: z.object({
     nome: z.string().min(1),
     cargo: z.string().min(1),
-    formacao: z.array(z.string()).min(1),
+    /** Nomes de instituição para o campo alumniOf do JSON-LD Person. */
+    alumniOf: z.array(z.string()).min(1),
+  }),
+  /**
+   * Cada rede é opcional — o rodapé só mostra o ícone das que estiverem
+   * preenchidas aqui (regra: "ícone que leva a perfil parado prejudica").
+   */
+  redes: z.object({
+    linkedin: z.string().url().optional(),
+    instagram: z.string().url().optional(),
+    youtube: z.string().url().optional(),
   }),
 });
 
@@ -46,8 +56,11 @@ const empresa: Empresa = empresaSchema.parse({
   fundador: {
     nome: "Erich Noronha",
     cargo: "Consultor em Inteligência Artificial",
-    formacao: ["MBA FGV", "MIT", "ITA"],
+    alumniOf: ["MIT Professional Education", "Fundação Getulio Vargas"],
   },
+  // Preencha quando as redes existirem — nenhum ícone aparece no rodapé
+  // enquanto os campos abaixo estiverem vazios.
+  redes: {},
 });
 
 export default empresa;

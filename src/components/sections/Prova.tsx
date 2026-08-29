@@ -1,13 +1,20 @@
+"use client";
+
 import { Card } from "@/components/ui/Card";
+import { useReveal } from "@/hooks/useReveal";
 import { depoimentos, projetosProprios } from "@/content/depoimentos";
 
 const eyebrowLabel = { comDepoimentos: "Resultados", semDepoimentos: "Projetos próprios" };
 
 export function Prova() {
+  const ref = useReveal<HTMLElement>();
   const temDepoimentos = depoimentos.length >= 3;
 
   return (
-    <section className="bg-surface-900 px-6 py-secao-mobile sm:py-secao-desktop">
+    <section
+      ref={ref}
+      className="reveal bg-surface-900 px-6 py-secao-mobile sm:py-secao-desktop"
+    >
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-[640px] text-center">
           <p className="font-display text-eyebrow uppercase tracking-[.24em] text-azul-celeste">
@@ -18,8 +25,8 @@ export function Prova() {
           </h2>
           {!temDepoimentos && (
             <p className="mt-4 text-corpo-mobile text-cinza-prata sm:text-corpo">
-              Enquanto os primeiros depoimentos de clientes chegam, aqui estão projetos que eu
-              mesmo tirei do papel.
+              Enquanto os primeiros depoimentos de clientes chegam, aqui estão projetos que a
+              DOMINIA já tirou do papel.
             </p>
           )}
         </div>

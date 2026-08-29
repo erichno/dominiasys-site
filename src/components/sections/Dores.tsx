@@ -1,9 +1,18 @@
+"use client";
+
 import { Card } from "@/components/ui/Card";
+import { useReveal } from "@/hooks/useReveal";
 import dores, { doresEyebrow, doresFecho, doresTitulo } from "@/content/dores";
 
 export function Dores() {
+  const ref = useReveal<HTMLElement>();
+
   return (
-    <section className="bg-surface-800 px-6 py-secao-mobile sm:py-secao-desktop">
+    <section
+      ref={ref}
+      id="dores"
+      className="reveal bg-surface-800 px-6 py-secao-mobile sm:py-secao-desktop"
+    >
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-[640px] text-center">
           <p className="font-display text-eyebrow uppercase tracking-[.24em] text-azul-celeste">

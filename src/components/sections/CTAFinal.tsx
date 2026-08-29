@@ -1,11 +1,18 @@
+"use client";
+
 import { ArcoD } from "@/components/brand/ArcoD";
 import { Button } from "@/components/ui/Button";
-import { agendarHref, whatsappHref } from "@/lib/agendar";
+import { BotaoAgendar } from "@/components/ui/BotaoAgendar";
+import { useReveal } from "@/hooks/useReveal";
+import { whatsappHref } from "@/lib/agendar";
 
 export function CTAFinal() {
+  const ref = useReveal<HTMLElement>();
+
   return (
     <section
-      className="relative overflow-hidden px-6 py-secao-mobile text-center sm:py-secao-desktop"
+      ref={ref}
+      className="reveal relative overflow-hidden px-6 py-secao-mobile text-center sm:py-secao-desktop"
       style={{
         background:
           "linear-gradient(120deg, var(--surface-900), var(--surface-700) 45%, var(--blue-700) 100%)",
@@ -26,7 +33,7 @@ export function CTAFinal() {
         </p>
 
         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Button href={agendarHref()}>Agendar conversa</Button>
+          <BotaoAgendar>Agendar conversa</BotaoAgendar>
           <Button href={whatsappHref()} variant="secondary">
             Falar no WhatsApp
           </Button>

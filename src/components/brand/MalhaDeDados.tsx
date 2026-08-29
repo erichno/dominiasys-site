@@ -1,3 +1,5 @@
+import { cn } from "@/lib/cn";
+
 const NODES: [number, number][] = [
   [40, 60], [140, 30], [230, 90], [320, 40], [410, 110], [500, 50], [590, 100], [680, 40], [760, 90],
   [80, 180], [190, 150], [280, 210], [370, 170], [460, 230], [550, 180], [640, 220], [730, 170],
@@ -15,15 +17,35 @@ const EDGES: [number, number][] = [
   [25, 26], [26, 27], [27, 28], [28, 29], [29, 30],
 ];
 
-export function MalhaDeDados({ className }: { className?: string }) {
+const MASCARA_PADRAO =
+  "radial-gradient(ellipse at center, black 55%, transparent 100%)";
+
+interface MalhaDeDadosProps {
+  /** 0–1. Padrão 0.10 — spec recomenda 8–12%, nunca acima de 18%. */
+  opacidade?: number;
+  /** Valor de mask-image para desvanecer as bordas. Padrão: fade radial. */
+  mascara?: string;
+  className?: string;
+}
+
+export function MalhaDeDados({
+  opacidade = 0.1,
+  mascara = MASCARA_PADRAO,
+  className,
+}: MalhaDeDadosProps) {
   return (
     <svg
       viewBox="0 0 800 500"
       preserveAspectRatio="xMidYMid slice"
-      className={className}
       aria-hidden="true"
+      className={cn("pointer-events-none absolute inset-0 h-full w-full", className)}
+      style={{
+        opacity: opacidade,
+        maskImage: mascara,
+        WebkitMaskImage: mascara,
+      }}
     >
-      <g className="motion-safe:animate-[mesh-drift_90s_ease-in-out_infinite_alternate]">
+      <g className="sm:motion-safe:[animation:mesh-drift_60s_ease-in-out_infinite_alternate]">
         {EDGES.map(([a, b], index) => {
           const [x1, y1] = NODES[a];
           const [x2, y2] = NODES[b];

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --navy: #0d1b2a;
   --azul-royal: #2563eb;
@@ -25,6 +29,35 @@
   --atencao: #f59e0b;
   --erro: #ef4444;
   --info: #38bdf8;
+
+  /*
+   * Canais RGB separados (sem `rgb()`, sem vírgula) das mesmas cores acima.
+   * O Tailwind precisa disso para montar `rgb(var(--x-rgb) / <alpha-value>)`
+   * no tailwind.config.ts — só com o hex opaco, todo modificador de opacidade
+   * (bg-azul-celeste/30, border-azul-celeste/[0.35] etc.) vira transparente.
+   */
+  --navy-rgb: 13 27 42;
+  --azul-royal-rgb: 37 99 235;
+  --azul-celeste-rgb: 56 189 248;
+  --cinza-prata-rgb: 156 163 175;
+  --branco-frio-rgb: 248 250 252;
+
+  --surface-900-rgb: 6 17 31;
+  --surface-800-rgb: 13 27 42;
+  --surface-700-rgb: 18 38 58;
+  --surface-600-rgb: 27 53 80;
+  --surface-500-rgb: 39 71 102;
+
+  --blue-700-rgb: 29 78 216;
+  --blue-600-rgb: 37 99 235;
+  --blue-500-rgb: 59 130 246;
+  --blue-400-rgb: 56 189 248;
+  --blue-200-rgb: 186 230 253;
+
+  --sucesso-rgb: 16 185 129;
+  --atencao-rgb: 245 158 11;
+  --erro-rgb: 239 68 68;
+  --info-rgb: 56 189 248;
 
   --grad-marca: linear-gradient(120deg, #1d4ed8, #2563eb 42%, #38bdf8);
   --grad-fundo: linear-gradient(160deg, #0d1b2a, #06111f);
@@ -53,6 +86,21 @@ body {
 
 summary::-webkit-details-marker {
   display: none;
+}
+
+/*
+ * border-image não respeita border-radius, então a borda em gradiente do
+ * Card "destaque" usa dois backgrounds: um sólido em padding-box (a face do
+ * card) e o gradiente em border-box (some atrás, só aparece na faixa de 1px
+ * da borda transparente).
+ */
+.borda-grad-marca {
+  border: 1px solid transparent;
+  background-image:
+    linear-gradient(var(--surface-700), var(--surface-700)),
+    var(--grad-marca);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 }
 
 @keyframes mesh-drift {

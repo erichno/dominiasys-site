@@ -1,7 +1,10 @@
+"use client";
+
 import { ArcoD } from "@/components/brand/ArcoD";
 import { MalhaDeDados } from "@/components/brand/MalhaDeDados";
 import { Button } from "@/components/ui/Button";
-import { agendarHref } from "@/lib/agendar";
+import { BotaoAgendar } from "@/components/ui/BotaoAgendar";
+import { useReveal } from "@/hooks/useReveal";
 
 const credenciais = [
   "25 anos em engenharia e liderança técnica",
@@ -11,10 +14,13 @@ const credenciais = [
 ];
 
 export function Hero() {
+  const ref = useReveal<HTMLElement>();
+
   return (
     <section
+      ref={ref}
       id="hero"
-      className="relative flex min-h-[88vh] items-center overflow-hidden bg-grad-fundo px-6 pb-16 pt-32 sm:pt-40"
+      className="reveal relative flex min-h-[88vh] items-center overflow-hidden bg-grad-fundo px-6 pb-16 pt-32 sm:pt-40"
     >
       <div
         aria-hidden="true"
@@ -23,19 +29,15 @@ export function Hero() {
           background: "radial-gradient(circle, rgba(56,189,248,0.28) 0%, rgba(56,189,248,0) 70%)",
         }}
       />
-      <ArcoD className="pointer-events-none absolute right-4 top-1/2 hidden h-[380px] w-[380px] -translate-y-1/2 opacity-20 xl:block" />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden text-azul-celeste opacity-10 lg:block"
-        style={{
-          maskImage:
-            "linear-gradient(100deg, transparent 0%, transparent 60%, black 78%, black 100%)",
-          WebkitMaskImage:
-            "linear-gradient(100deg, transparent 0%, transparent 60%, black 78%, black 100%)",
-        }}
-      >
-        <MalhaDeDados className="h-full w-full" />
-      </div>
+      <ArcoD
+        glow
+        className="pointer-events-none absolute -right-24 top-1/2 hidden h-[380px] w-[380px] -translate-y-1/2 opacity-20 xl:block"
+      />
+      <MalhaDeDados
+        className="hidden text-azul-celeste lg:block"
+        opacidade={0.12}
+        mascara="linear-gradient(100deg, transparent 0%, transparent 60%, black 78%, black 100%)"
+      />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <div className="max-w-[640px]">
@@ -53,15 +55,9 @@ export function Hero() {
           </p>
 
           <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <Button href={agendarHref()}>Agendar conversa de 30 minutos</Button>
+            <BotaoAgendar>Agendar conversa de 30 minutos</BotaoAgendar>
             <Button href="/#metodo" variant="tertiary">
               Ver como trabalho
-              <span
-                aria-hidden="true"
-                className="inline-block transition-transform duration-micro ease-marca group-hover:translate-x-1"
-              >
-                →
-              </span>
             </Button>
           </div>
 

@@ -15,9 +15,15 @@ const FOCUSABLE_SELECTOR =
 export function SidePanel({ open, onClose, title, children }: SidePanelProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const gatilhoRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (open) closeButtonRef.current?.focus();
+    if (open) {
+      gatilhoRef.current = document.activeElement as HTMLElement | null;
+      closeButtonRef.current?.focus();
+    } else {
+      gatilhoRef.current?.focus();
+    }
   }, [open]);
 
   useEffect(() => {

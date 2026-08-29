@@ -1,8 +1,17 @@
+"use client";
+
+import { useReveal } from "@/hooks/useReveal";
 import metodo, { metodoEyebrow, metodoSubtitulo, metodoTitulo } from "@/content/metodo";
 
 export function Metodo() {
+  const ref = useReveal<HTMLElement>();
+
   return (
-    <section id="metodo" className="bg-surface-800 px-6 py-secao-mobile sm:py-secao-desktop">
+    <section
+      ref={ref}
+      id="metodo"
+      className="reveal bg-surface-800 px-6 py-secao-mobile sm:py-secao-desktop"
+    >
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-[640px] text-center">
           <p className="font-display text-eyebrow uppercase tracking-[.24em] text-azul-celeste">
@@ -20,7 +29,7 @@ export function Metodo() {
               {index < metodo.length - 1 && (
                 <span
                   aria-hidden="true"
-                  className="absolute -bottom-10 left-4 top-8 w-px bg-gradient-to-b from-azul-celeste/50 to-azul-celeste/10"
+                  className="absolute -bottom-10 left-4 top-8 w-px bg-gradient-to-b from-blue-700 via-blue-600 to-blue-400"
                 />
               )}
               <span className="absolute left-0 top-0 flex h-8 w-8 items-center justify-center rounded-full border border-azul-celeste/40 font-display text-xs font-semibold text-azul-celeste">

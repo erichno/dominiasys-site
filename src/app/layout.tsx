@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Poppins, Raleway } from "next/font/google";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import empresa from "@/content/empresa";
 import "./globals.css";
+import "@/styles/motion.css";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? `https://${empresa.dominio}`;
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -19,9 +21,12 @@ const raleway = Raleway({
 });
 
 export const metadata: Metadata = {
-  title: "DOMINIA — Consultoria em Tecnologia da Informação",
-  description:
-    "Consultoria em IA aplicada, em São José dos Campos/SP.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "DOMINIA — Consultoria em Tecnologia da Informação",
+    template: "%s — DOMINIA",
+  },
+  description: `Consultoria em IA aplicada, em ${empresa.endereco.cidade}/${empresa.endereco.uf}.`,
 };
 
 export default function RootLayout({
@@ -32,11 +37,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${poppins.variable} ${raleway.variable} font-body antialiased`}>
-        <Header />
-        <div className="flex min-h-screen flex-col">
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+        {children}
       </body>
     </html>
   );

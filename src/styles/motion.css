@@ -1,0 +1,23 @@
+.reveal {
+  opacity: 0;
+  transform: translate(-12px, 24px);
+  transition:
+    opacity var(--dur-pagina) var(--ease),
+    transform var(--dur-pagina) var(--ease);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transform: none;
+    transition: opacity var(--dur-pagina) var(--ease);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+  }
+}

@@ -1,11 +1,16 @@
 import { useId } from "react";
+import { cn } from "@/lib/cn";
 
 type ArcoDVariant = "gradiente" | "mono";
 
 interface ArcoDProps {
   variant?: ArcoDVariant;
+  /** Glow celeste ao redor do arco, para uso decorativo no canto do hero. */
+  glow?: boolean;
   className?: string;
 }
+
+const GLOW = "drop-shadow-[0_0_32px_rgba(56,189,248,0.55)]";
 
 const NOS: Array<[number, number, number]> = [
   [48, 60, 4.1],
@@ -51,14 +56,18 @@ const LIGACOES = [
 const ARCO_D =
   "M47 19 L110 19 A 85 85 0 1 1 95 188 L115 166 A 63 63 0 0 0 110 42 L59 42 Z";
 
-export function ArcoD({ variant = "gradiente", className }: ArcoDProps) {
+export function ArcoD({ variant = "gradiente", glow = false, className }: ArcoDProps) {
   const uid = useId();
   const arcoId = `dominia-arco-${uid}`;
   const noId = `dominia-no-${uid}`;
 
   if (variant === "mono") {
     return (
-      <svg viewBox="0 0 200 208" className={className} aria-hidden="true">
+      <svg
+        viewBox="0 0 200 208"
+        className={cn(glow && GLOW, className)}
+        aria-hidden="true"
+      >
         <g fill="currentColor">
           <path d={ARCO_D} />
           {NOS.map(([cx, cy, r], index) => (
@@ -75,7 +84,11 @@ export function ArcoD({ variant = "gradiente", className }: ArcoDProps) {
   }
 
   return (
-    <svg viewBox="0 0 200 208" className={className} aria-hidden="true">
+    <svg
+      viewBox="0 0 200 208"
+      className={cn(glow && GLOW, className)}
+      aria-hidden="true"
+    >
       <defs>
         <linearGradient id={arcoId} x1="0.18" y1="0.02" x2="0.95" y2="0.62">
           <stop offset="0" stopColor="#1E5FE0" />

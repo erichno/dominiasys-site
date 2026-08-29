@@ -111,9 +111,7 @@ export function CinematicIntro() {
   return (
     <div ref={containerRef} className="relative" style={{ height: "300vh" }}>
       <div className="sticky top-0 z-[100] h-screen w-full overflow-hidden bg-black">
-        <div className="pointer-events-none absolute inset-0 opacity-[0.06] text-azul-celeste">
-          <MalhaDeDados className="h-full w-full" />
-        </div>
+        <MalhaDeDados className="text-azul-celeste" opacidade={0.06} />
 
         <video
           ref={videoRef}

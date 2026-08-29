@@ -1,15 +1,27 @@
-import { Badge } from "@/components/ui/Badge";
+"use client";
+
+import { useReveal } from "@/hooks/useReveal";
 import empresa from "@/content/empresa";
-import { numerosTrajetoria, trajetoriaEyebrow, trajetoriaParagrafos } from "@/content/trajetoria";
+import {
+  numerosTrajetoria,
+  trajetoriaEyebrow,
+  trajetoriaFormacao,
+  trajetoriaParagrafos,
+} from "@/content/trajetoria";
 
 export function Trajetoria() {
+  const ref = useReveal<HTMLElement>();
   const iniciais = empresa.fundador.nome
     .split(" ")
     .map((parte) => parte[0])
     .join("");
 
   return (
-    <section id="trajetoria" className="bg-surface-900 px-6 py-secao-mobile sm:py-secao-desktop">
+    <section
+      ref={ref}
+      id="trajetoria"
+      className="reveal bg-surface-900 px-6 py-secao-mobile sm:py-secao-desktop"
+    >
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-12 lg:grid-cols-[360px_1fr] lg:items-start lg:gap-16">
           <div
@@ -38,15 +50,11 @@ export function Trajetoria() {
               ))}
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-2">
-              {empresa.fundador.formacao.map((credencial) => (
-                <Badge key={credencial}>{credencial}</Badge>
-              ))}
-            </div>
+            <p className="mt-6 font-display text-sm text-cinza-prata">{trajetoriaFormacao}</p>
           </div>
         </div>
 
-        <div className="mt-bloco-interno grid grid-cols-1 gap-8 border-t border-surface-600 pt-bloco-interno sm:grid-cols-3">
+        <div className="mt-bloco-interno grid grid-cols-2 gap-8 border-t border-surface-600 pt-bloco-interno sm:grid-cols-4">
           {numerosTrajetoria.map((item) => (
             <div key={item.rotulo}>
               <p className="font-display text-h2-mobile font-semibold text-branco-frio sm:text-h2">

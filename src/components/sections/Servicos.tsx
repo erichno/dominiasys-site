@@ -3,12 +3,12 @@
 import { useState, type MouseEvent } from "react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { BotaoAgendar } from "@/components/ui/BotaoAgendar";
 import { Card } from "@/components/ui/Card";
 import { SidePanel } from "@/components/ui/SidePanel";
 import { Tabs } from "@/components/ui/Tabs";
-import { agendarHref } from "@/lib/agendar";
-import { formatarMoeda } from "@/lib/moeda";
-import servicos, { type Pilar, type Servico } from "@/content/servicos";
+import { useReveal } from "@/hooks/useReveal";
+import servicos, { precoExibido, type Pilar, type Servico } from "@/content/servicos";
 
 const tabs = [
   { value: "formar", label: "Formar" },
@@ -16,16 +16,11 @@ const tabs = [
   { value: "construir", label: "Construir" },
 ];
 
-function formatarFaixaPreco(servico: Servico) {
-  const { min, max, unidade } = servico.faixaPreco;
-  const faixa = min === max ? formatarMoeda(min) : `${formatarMoeda(min)} a ${formatarMoeda(max)}`;
-  return unidade ? `${faixa} · ${unidade}` : faixa;
-}
-
 export function Servicos() {
   const [pilarAtivo, setPilarAtivo] = useState<Pilar>("direcionar");
   const [servicoAberto, setServicoAberto] = useState<Servico | null>(null);
   const [gatilho, setGatilho] = useState<HTMLButtonElement | null>(null);
+  const ref = useReveal<HTMLElement>();
 
   const servicosDoPilar = servicos.filter((servico) => servico.pilar === pilarAtivo);
 
@@ -40,7 +35,11 @@ export function Servicos() {
   }
 
   return (
-    <section id="servicos" className="bg-surface-800 px-6 py-secao-mobile sm:py-secao-desktop">
+    <section
+      ref={ref}
+      id="servicos"
+      className="reveal bg-surface-800 px-6 py-secao-mobile sm:py-secao-desktop"
+    >
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-[640px] text-center">
           <p className="font-display text-eyebrow uppercase tracking-[.24em] text-azul-celeste">
@@ -79,7 +78,7 @@ export function Servicos() {
                   {servico.nome}
                 </h3>
                 <p className="mt-2 text-corpo-mobile text-cinza-prata sm:text-corpo">
-                  {servico.linhaUnica}
+                  {servico.umaLinha}
                 </p>
                 <dl className="mt-4 space-y-1 text-sm text-cinza-prata">
                   <div className="flex gap-2">
@@ -144,19 +143,18 @@ export function Servicos() {
               <p className="text-sm text-cinza-prata">
                 {servicoAberto.formato} · {servicoAberto.duracao}
               </p>
-              {servicoAberto.exibirPreco && (
-                <p className="mt-2 font-display text-h3-mobile font-medium text-branco-frio">
-                  {formatarFaixaPreco(servicoAberto)}
-                </p>
-              )}
-              {servicoAberto.observacao && (
-                <p className="mt-2 text-sm text-cinza-prata">{servicoAberto.observacao}</p>
-              )}
+              <p className="mt-2 font-display text-h3-mobile font-medium text-branco-frio">
+                {precoExibido(servicoAberto)}
+              </p>
             </div>
 
-            <Button href={agendarHref()} className="w-full">
-              {servicoAberto.cta}
-            </Button>
+            {servicoAberto.destaque ? (
+              <Button href="/diagnostico" className="w-full">
+                {servicoAberto.cta}
+              </Button>
+            ) : (
+              <BotaoAgendar className="w-full">{servicoAberto.cta}</BotaoAgendar>
+            )}
           </div>
         )}
       </SidePanel>

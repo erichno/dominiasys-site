@@ -1,8 +1,16 @@
+"use client";
+
+import { useReveal } from "@/hooks/useReveal";
 import { paraQuemNao, paraQuemSim, paraQuemTitulo } from "@/content/paraQuem";
 
 export function ParaQuem() {
+  const ref = useReveal<HTMLElement>();
+
   return (
-    <section className="bg-surface-800 px-6 py-secao-mobile sm:py-secao-desktop">
+    <section
+      ref={ref}
+      className="reveal bg-surface-800 px-6 py-secao-mobile sm:py-secao-desktop"
+    >
       <div className="mx-auto max-w-6xl">
         <h2 className="mx-auto max-w-[640px] text-center font-display text-h2-mobile font-semibold text-branco-frio sm:text-h2">
           {paraQuemTitulo}
@@ -29,7 +37,7 @@ export function ParaQuem() {
             </ul>
           </div>
 
-          <div>
+          <div className="opacity-70">
             <h3 className="font-display text-h3-mobile font-medium text-cinza-prata sm:text-h3">
               {paraQuemNao.titulo}
             </h3>
