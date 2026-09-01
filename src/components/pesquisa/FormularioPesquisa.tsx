@@ -18,6 +18,8 @@ interface FormularioPesquisaProps {
   token: string;
   pesquisa: { titulo: string; descricao: string | null };
   perguntas: PerguntaPublica[];
+  /** Renderiza o mesmo motor sem gravar nada — usado por /p/preview/[id]. */
+  preview?: boolean;
 }
 
 function estaVazio(valor: ValorResposta): boolean {
@@ -59,14 +61,20 @@ function montarItem(pergunta: PerguntaPublica, valor: ValorResposta) {
   return { perguntaId: pergunta.id, valorTexto: String(valor) };
 }
 
-export function FormularioPesquisa({ token, pesquisa, perguntas }: FormularioPesquisaProps) {
+export function FormularioPesquisa({
+  token,
+  pesquisa,
+  perguntas,
+  preview = false,
+}: FormularioPesquisaProps) {
   const router = useRouter();
   const [valores, setValores] = useState<Record<string, ValorResposta>>({});
   const [erros, setErros] = useState<Record<string, string>>({});
   const [enviando, setEnviando] = useState(false);
   const [erroEnvio, setErroEnvio] = useState<string | null>(null);
+  const [enviadoPreview, setEnviadoPreview] = useState(false);
 
-  useTurnstileWidget(TURNSTILE_SITE_KEY);
+  useTurnstileWidget(preview ? undefined : TURNSTILE_SITE_KEY);
 
   const respondidas = perguntas.filter((pergunta) => !estaVazio(valores[pergunta.id])).length;
   const progresso = perguntas.length > 0 ? respondidas / perguntas.length : 0;
@@ -135,6 +143,11 @@ export function FormularioPesquisa({ token, pesquisa, perguntas }: FormularioPes
       return;
     }
     setErros({});
+
+    if (preview) {
+      setEnviadoPreview(true);
+      return;
+    }
 
     const token_ = TURNSTILE_SITE_KEY ? obterTokenTurnstile() : "sem-turnstile-configurado";
     if (TURNSTILE_SITE_KEY && !token_) {
@@ -214,7 +227,7 @@ export function FormularioPesquisa({ token, pesquisa, perguntas }: FormularioPes
             </div>
           ))}
 
-          {TURNSTILE_SITE_KEY && (
+          {!preview && TURNSTILE_SITE_KEY && (
             <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark" />
           )}
 
@@ -222,6 +235,11 @@ export function FormularioPesquisa({ token, pesquisa, perguntas }: FormularioPes
             <Button type="submit" disabled={enviando} className="w-full sm:w-auto">
               {enviando ? "Enviando..." : "Enviar respostas"}
             </Button>
+            {preview && enviadoPreview && (
+              <p className="font-body text-sm text-azul-celeste">
+                Isso é uma pré-visualização — nada foi enviado.
+              </p>
+            )}
             {erroEnvio && <p className="font-body text-sm text-erro">{erroEnvio}</p>}
           </div>
         </form>

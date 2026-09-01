@@ -64,6 +64,20 @@ export async function buscarPesquisaParaEditor(id: string) {
   return { pesquisa, perguntas: listaPerguntas, cursos: todosOsCursos };
 }
 
+/** Usada só por /p/preview/[id] — ignora token, link e cache de propósito. */
+export async function buscarPesquisaParaPreview(id: string) {
+  const [pesquisa] = await db.select().from(pesquisas).where(eq(pesquisas.id, id)).limit(1);
+  if (!pesquisa) return null;
+
+  const listaPerguntas = await db
+    .select()
+    .from(perguntas)
+    .where(eq(perguntas.pesquisaId, id))
+    .orderBy(asc(perguntas.ordem));
+
+  return { pesquisa, perguntas: listaPerguntas };
+}
+
 export async function pesquisaTemResposta(pesquisaId: string): Promise<boolean> {
   const resultado = await db.execute<{ existe: boolean }>(sql`
     select exists(select 1 from respostas where pesquisa_id = ${pesquisaId}) as existe
