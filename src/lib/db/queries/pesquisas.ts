@@ -25,7 +25,8 @@ export interface PesquisaPublica {
 
 const TTL_CACHE_SEGUNDOS = 300;
 
-function chaveCache(token: string) {
+/** Exportada para as mutações do admin invalidarem o mesmo formato de chave. */
+export function chaveCachePesquisa(token: string) {
   return `pesquisa:token:${token}`;
 }
 
@@ -92,7 +93,7 @@ export async function consultarTokenNoBanco(token: string): Promise<PesquisaPubl
  * confia no cache para a decisão de aceitar ou não a resposta.
  */
 export async function buscarPesquisaPublicaPorToken(token: string): Promise<PesquisaPublica | null> {
-  const chave = chaveCache(token);
+  const chave = chaveCachePesquisa(token);
 
   try {
     const emCache = await redis.get(chave);
